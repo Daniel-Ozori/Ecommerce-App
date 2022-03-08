@@ -1,38 +1,43 @@
 import React,{useState,useEffect,useRef} from "react";
 import {Text,View,TextInput,StyleSheet,Animated,Image} from 'react-native';
+const valid = require('../assets/correct_icon.png');
+const invalid = require('../assets/wrong_icon.png');
 
-
-const TextBox = ({label,secureTextEntry}) => {
-    const [value, setValue] = useState('');
+const TextBox = (props) => {
+    let value = props.value;
     const [icon,setIcon] = useState('');
     const moveText = useRef(new Animated.Value(0)).current;
+   
+    useEffect(()=>{
+        let field = props.label;
+       
+        if(value !== ''){
+            switch (field){
+                case 'Name':
+                    (value.length >= 3 ? setIcon(valid) : setIcon(invalid));
+                    break
+                case 'Email':
+                    (value.match(/\S+@\S+\.\S+/) ? setIcon(valid) : setIcon(invalid));
+                    break
+                case 'Password':
+                    (value.length >= 8 ? setIcon(valid) : setIcon(invalid));
+                    break
+            }
+            
+        }
+    })    
     
     useEffect(() => {
         if (value !== "") {
             moveTextTop();
+
         } else if (value === "") {
             moveTextBottom();
-            setIcon('');
+            setIcon(null);
         }
     }, [value])
 
-    const onChangeText = (text) => {
-        setValue(text);
-        if(value !== ''){
-            if(label === 'Name'){
-                setIcon(require('../assets/correct_icon.png'));
-            }else if(label === 'Email'){
-                if(value.match(/\S+@\S+\.\S+/)){
-                    setIcon(require('../assets/correct_icon.png'));
-                }else{setIcon(require('../assets/wrong_icon.png'));
-
-                }
-            }
-            
-        }else{
-        }
-      }
-
+  
     const onFocusHandler = () => {
         if (value !== "") {
             moveTextTop();
@@ -76,18 +81,18 @@ const TextBox = ({label,secureTextEntry}) => {
     return(
         <View style={styles.container}>
             <Animated.View style={[styles.animatedStyle, animStyle]}>
-            <Text style={styles.label}>{label}</Text>
+            <Text style={styles.label}>{props.label}</Text>
             </Animated.View>
             <TextInput
-                secureTextEntry={secureTextEntry}
+                {...props}
+                secureTextEntry={props.secureTextEntry}
                 autoCorrect={true}
                 autoCapitalize='none'
                 style={styles.input}
-                value={value}
+                value={props.value}
                 editable={true}
                 onFocus={onFocusHandler}
-                onBlur={onBlurHandler}
-                onChangeText={onChangeText}/>
+                onBlur={onBlurHandler}/>
             <Image source={icon} 
                 style={styles.icon} />
         </View>

@@ -7,11 +7,30 @@ import TextBox from '../components/TextBox';
 import Header from '../components/Header.js';
 import PrimaryButton from '../components/PrimaryButton.js';
 
+
 const SignUp = () => {
     const navigation = useNavigation();
+    const [userInfo,setUserInfo] = useState({
+        name:'',
+        email:'',
+        password:'',
+    });
+    const {name,email,password} = userInfo;
+    const handleOnChangeText = (value,field) => {
+        setUserInfo({...userInfo, [field] : value});
+    }
+    const isValidForm = (obj) => {
+        return Object.values(obj).every(value => value.trim());
+    }
+    const submit = () =>{
+        if(!isValidForm(userInfo)){
+            console.log('invalid')
+        }
+    }
     return(
         
         <ScrollView style={styles.container} >
+            
             <SafeAreaView />
              <Header/>
             <View style={{paddingHorizontal:10,height:'100%',}}>
@@ -21,11 +40,17 @@ const SignUp = () => {
 
                 <View style={{marginTop:90,}}>
                     <TextBox
+                        value={name}
+                        onChangeText={(value) => handleOnChangeText(value,'name')}
                         label='Name'/>
                     <TextBox
+                        value={email}
+                        onChangeText={(value) => [handleOnChangeText(value,'email')]}
                         label='Email'/>
                     <TextBox
-                        label='Password' 
+                        value={password}
+                        onChangeText={(value) => handleOnChangeText(value,'password')}
+                        label='Password'
                         secureTextEntry/>
                     
                     <TouchableOpacity
@@ -40,7 +65,8 @@ const SignUp = () => {
                     </TouchableOpacity>
 
                     <PrimaryButton
-                        text='Sign up'/>
+                        text='Sign up'
+                        onPress={submit}/>
                     
                 </View>
                 <View style={{display:'flex',justifyContent:'center',alignItems:'center',marginBottom:0,height:100,marginTop:50}}>

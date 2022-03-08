@@ -9,7 +9,22 @@ import PrimaryButton from '../components/PrimaryButton.js';
 
 const Login = () => {
     const navigation = useNavigation();
-   
+    const [userInfo,setUserInfo] = useState({
+        email:'',
+        password:'',
+    });
+    const {email,password} = userInfo;
+    const handleOnChangeText = (value,field) => {
+        setUserInfo({...userInfo, [field] : value});
+    }
+    const isValidForm = (obj) => {
+        return Object.values(obj).every(value => value.trim());
+    }
+    const submit = () =>{
+        if(!isValidForm(userInfo)){
+            console.log('invalid')
+        }
+    }
     return(
         <ScrollView style={styles.container} >
             <SafeAreaView />
@@ -20,11 +35,16 @@ const Login = () => {
                 </Text>
 
                 <View style={{marginTop:90,}}>
-                    <TextBox
+                <TextBox
+                        value={email}
+                        onChangeText={(value) => [handleOnChangeText(value,'email')]}
                         label='Email'/>
                     <TextBox
-                        label='Password' 
+                        value={password}
+                        onChangeText={(value) => handleOnChangeText(value,'password')}
+                        label='Password'
                         secureTextEntry/>
+                    
                     <TouchableOpacity
                         onPress={() => navigation.navigate('ForgotPassScreen')}>
                         <View style={{width:'100%',flexDirection:'row',justifyContent:'flex-end',marginBottom:30}}>
@@ -37,7 +57,8 @@ const Login = () => {
                     </TouchableOpacity>
 
                    <PrimaryButton
-                    text='login'/>
+                    text='login'
+                    onPress={submit}/>
                     
                 </View>
                 <View style={{display:'flex',justifyContent:'center',alignItems:'center',marginBottom:0,height:100,marginTop:50}}>
