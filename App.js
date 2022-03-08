@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SignUp from './src/components/screens/SignUp';
-import Login from './src/components/screens/Login';
-import ForgotPassword from './src/components/screens/ForgotPassword';
+import SignUp from './src/screens/SignUp';
+import Login from './src/screens/Login';
+import ForgotPassword from './src/screens/ForgotPassword';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -29,18 +29,18 @@ const ForgotPassScreen = ({ navigation, route }) => {
 export default function App() {
   
   return (
-        <NavigationContainer>
-      <Stack.Navigator 
-        screenOptions={{
-          headerShown: false
-        }}>
-        <Stack.Screen
-          name="Sign up"
-          component={SignUpScreen}
-        />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="ForgotPassScreen" component={ForgotPassScreen} />
-      </Stack.Navigator>
+    <NavigationContainer>
+        <Stack.Navigator 
+          screenOptions={{
+            headerShown: false
+          }}>
+          <Stack.Screen
+            name="Sign up"
+            component={SignUpScreen}
+          />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="ForgotPassScreen" component={ForgotPassScreen} />
+        </Stack.Navigator>
     </NavigationContainer>
     
   );
