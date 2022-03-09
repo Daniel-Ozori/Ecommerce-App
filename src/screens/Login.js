@@ -35,10 +35,10 @@ const Login = () => {
                 </Text>
 
                 <View style={{marginTop:90,}}>
-                <TextBox
-                        value={email}
-                        onChangeText={(value) => [handleOnChangeText(value,'email')]}
-                        label='Email'/>
+                    <TextBox
+                            value={email}
+                            onChangeText={(value) => [handleOnChangeText(value,'email')]}
+                            label='Email'/>
                     <TextBox
                         value={password}
                         onChangeText={(value) => handleOnChangeText(value,'password')}
@@ -47,7 +47,7 @@ const Login = () => {
                     
                     <TouchableOpacity
                         onPress={() => navigation.navigate('ForgotPassScreen')}>
-                        <View style={{width:'100%',flexDirection:'row',justifyContent:'flex-end',marginBottom:30}}>
+                        <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginBottom:30}}>
                             <Text style={{color:'white'}}>Forgot your password?</Text>
                             
                             <Image source={require('../assets/arrow_right.png')} 
