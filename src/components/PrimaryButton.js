@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     text:{
         color:'white',
-        textTransform:'capitalize',
+        textTransform:'uppercase',
     }
 });
 export default PrimaryButton;
