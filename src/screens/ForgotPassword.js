@@ -14,6 +14,9 @@ const ForgotPassword = () => {
     const [error,setError] = useState();
     const handleOnChangeText = (value,field) => {
         setUserInfo({...userInfo, [field] : value});
+        if(email.match(/\S+@\S+\.\S+/)){
+            setError('');
+        }
     }
     
     const submit = () =>{
